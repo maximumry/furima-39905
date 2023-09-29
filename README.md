@@ -17,7 +17,6 @@
 
 - has_many :items
 - has_many :logs
-- has_one :delivery
 
 ## items テーブル
 
@@ -29,14 +28,13 @@
 | condition_id     | integer    | null: false                    |
 | burden_info_id   | integer    | null: false                    |
 | prefecture_id    | integer    | null: false                    |
-| shipping_days_id | integer    | null: false                    |
-| price            | string     | null: false                    |
+| shipping_day_id  | integer    | null: false                    |
+| price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- has_one :delivery
 - has_one :log
 
 ## deliveries テーブル
@@ -52,8 +50,6 @@
 | log            | references | null: false, foreign_key: true |
 
 ### Association
-- belongs_to :user
-- belongs_to :item
 - has_one :log
 
 ## logs テーブル
