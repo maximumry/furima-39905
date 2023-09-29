@@ -50,7 +50,7 @@
 | log            | references | null: false, foreign_key: true |
 
 ### Association
-- has_one :log
+- belongs_to :log
 
 ## logs テーブル
 
@@ -62,4 +62,4 @@
 ### Association
 - belongs_to :user
 - belongs_to :item
-- belongs_to :delivery
+- has_one :delivery
