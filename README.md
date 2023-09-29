@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-|     Column      |   Type  |    Options  |
-|-----------------|---------|-------------|
-| nickname        | string  | null: false |
-| email           | string  | null: false |
-| password        | string  | null: false |
-| last_name       | string  | null: false |
-| first_name      | string  | null: false |
-| kana_last       | string  | null: false |
-| kana_first      | string  | null: false |
-| birth_day       | integer | null: false |
+|     Column         |   Type  |    Options                |
+|--------------------|---------|---------------------------|
+| nickname           | string  | null: false               |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| last_name          | string  | null: false               |
+| first_name         | string  | null: false               |
+| kana_last          | string  | null: false               |
+| kana_first         | string  | null: false               |
+| birth_day          | date    | null: false               |
 
 ### Association
 
@@ -21,17 +21,17 @@
 
 ## items テーブル
 
-|   Column      | Type       |   Options                      |
-|---------------|------------|--------------------------------|
-| name          | string     | null: false                    |
-| text          | text       | null: false                    |
-| category      | integer    | null: false                    |
-| condition     | integer    | null: false                    |
-| burden_info   | integer    | null: false                    |
-| are_info      | integer    | null: false                    |
-| shipping_days | integer    | null: false                    |
-| price         | string     | null: false                    |
-| user          | references | null: false, foreign_key: true |
+|   Column         | Type       |   Options                      |
+|------------------|------------|--------------------------------|
+| name             | string     | null: false                    |
+| info             | text       | null: false                    |
+| category_id      | integer    | null: false                    |
+| condition_id     | integer    | null: false                    |
+| burden_info_id   | integer    | null: false                    |
+| prefecture_id    | integer    | null: false                    |
+| shipping_days_id | integer    | null: false                    |
+| price            | string     | null: false                    |
+| user             | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -44,13 +44,12 @@
 |    Column      |    Type    |         Options                |
 |--------------------------------------------------------------|
 | post_code      | string     | null: false                    |
-| prefecture     | integer    | null: false                    |
+| prefecture_id  | integer    | null: false                    |
 | municipalities | string     | null: false                    |
 | house_number   | string     | null: false                    |
-| building_name  | string     | null: true                     |
-| phone_number   | integer    | null: false                    |
-| user           | references | null: false, foreign_key: true |
-| item           | references | null: false, foreign_key: true |
+| building_name  | string     |                                |
+| phone_number   | string     | null: false                    |
+| log            | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -63,7 +62,6 @@
 |----------|------------|--------------------------------|
 | user     | references | null: false, foreign_key: true |
 | item     | references | null: false, foreign_key: true |
-| delivery | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :user
