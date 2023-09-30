@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
       it 'passwordが5文字以下では登録出来ない' do
         @user.password = "1234"
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
       end
       it 'passwordが129文字以上では登録出来ない' do
         @user.password = Faker::Internet.password(min_length: 129, max_length: 150)
@@ -52,12 +52,12 @@ RSpec.describe User, type: :model do
       it 'passwordが英字しか存在しない場合は登録出来ない' do
         @user.password = "abcdefg"
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
       end
       it 'passwordが数字しか存在しない場合は登録出来ない'do
         @user.password = "123456"
         @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+        expect(@user.errors.full_messages).to include("Password is invalid. Include both letters and numbers")
       end
       it 'passwordとpassword_confirmationが一致していないと登録出来ない' do
         @user.password = '1234'
