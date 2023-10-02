@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   belongs_to :burden_info
   belongs_to :prefecture
   belongs_to :shipping_day
+  has_one_attached :image
 
   validates :name, :info, :price, presence: true
 
