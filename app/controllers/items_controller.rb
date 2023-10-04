@@ -26,6 +26,15 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
+  def update
+    item = Item.find(params[:id])
+    if item.update(item_params)
+      redirect_to root_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
   private
   def move_to_index
     unless user_signed_in?
