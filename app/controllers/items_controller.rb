@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :user_match, only: [:edit, :destroy]
 
   
   def index
@@ -24,9 +25,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if @item.user != current_user
-      redirect_to root_path  #出品者以外はトップページに遷移させる
-    end
   end
 
   def update
@@ -49,5 +47,11 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def user_match
+    if @item.user != current_user
+      redirect_to root_path  #出品者以外はトップページに遷移させる
+    end
   end
 end
