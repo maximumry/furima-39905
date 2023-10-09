@@ -6,6 +6,7 @@ class Item < ApplicationRecord
   belongs_to :prefecture
   belongs_to :shipping_day
   belongs_to :user
+  has_one :log
   has_one_attached :image
 
   validates :image, presence: { message: "can't be blank" }
