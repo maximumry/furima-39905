@@ -2,9 +2,11 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :sold_out_item
   before_action :currentuser_item, expect: :index
-  before_action :find_gon, only: :index
+  before_action :api_key_gon
   
   def index
+    api_key_gon
+    @item = Item.find(params[:item_id])
     @log_delivery = LogDelivery.new
   end
 
@@ -15,7 +17,8 @@ class OrdersController < ApplicationController
       pay_item
       redirect_to root_path, notice: 'Order was successfully created.'
     else
-      find_gon
+      api_key_gon
+      render :index, status: :unprocessable_entity
     end
   end
   
@@ -47,9 +50,8 @@ class OrdersController < ApplicationController
         redirect_to root_path
       end
     end
-
-    def find_gon
+    
+    def api_key_gon
       gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-      @item = Item.find(params[:item_id])
     end
 end

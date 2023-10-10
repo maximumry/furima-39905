@@ -7,9 +7,7 @@ class LogDelivery
     validates :municipalities
     validates :house_number
     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "is too short" }, numericality: { only_integer: true, message: "is invalid. Input only number" }
-    validates :token, presence: true
-    validates :item_id, presence: true 
-    validates :user_id, presence: true
+    validates :token, :item_id, :user_id, presence: true
   end
   validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
 
