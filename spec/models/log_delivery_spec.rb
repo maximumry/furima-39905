@@ -13,6 +13,10 @@ RSpec.describe Delivery, type: :model do
       it '入力に問題なければ購入できる' do
         expect(@log_delivery).to be_valid
       end
+      it '建物名が空でも購入できる' do
+        @log_delivery.building_name = ""
+        expect(@log_delivery).to be_valid
+      end
     end
     context '購入出来ない' do
       it 'tokenが空だと購入出来ない' do
@@ -54,6 +58,11 @@ RSpec.describe Delivery, type: :model do
         @log_delivery.phone_number = "test"
         @log_delivery.valid?
         expect(@log_delivery.errors.full_messages).to include("Phone number is invalid. Input only number")
+      end
+      it '電話番号が12桁以上だと購入できない' do
+        @log_delivery.phone_number = "123456789012"
+        @log_delivery.valid?
+        expect(@log_delivery.errors.full_messages).to include("Phone number is too short")
       end
       it '都道府県が---だと購入できない' do
         @log_delivery.prefecture_id = 1
