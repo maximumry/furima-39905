@@ -25,6 +25,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.log.present?
+      redirect_to root_path
+    end
   end
 
   def update
@@ -51,7 +54,7 @@ class ItemsController < ApplicationController
 
   def user_match
     if @item.user != current_user
-      redirect_to root_path  #出品者以外はトップページに遷移させる
+      redirect_to root_path
     end
   end
 end
