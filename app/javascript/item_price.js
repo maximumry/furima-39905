@@ -3,7 +3,7 @@ document.addEventListener('turbo:load', () => {
   const calc = document.getElementById("item-price")
   const addTaxPrice = document.getElementById("add-tax-price")
   const profit = document.getElementById("profit")
-
+if(calc && addTaxPrice && profit) {
   calc.addEventListener('input', () => {
     const inputValue = calc.value;
     if(inputValue >= 300 && inputValue <= 9999999){
@@ -14,6 +14,7 @@ document.addEventListener('turbo:load', () => {
       profit.innerHTML = "---" 
     }
   })
+}
 })
 
 
