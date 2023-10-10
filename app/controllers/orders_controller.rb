@@ -2,10 +2,9 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :sold_out_item
   before_action :currentuser_item, expect: :index
+  before_action :find_gon, only: :index
   
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-    @item = Item.find(params[:item_id])
     @log_delivery = LogDelivery.new
   end
 
@@ -16,8 +15,7 @@ class OrdersController < ApplicationController
       pay_item
       redirect_to root_path, notice: 'Order was successfully created.'
     else
-      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
-      render :index, status: :unprocessable_entity
+      find_gon
     end
   end
   
@@ -48,5 +46,10 @@ class OrdersController < ApplicationController
       if @item.user == current_user
         redirect_to root_path
       end
+    end
+
+    def find_gon
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+      @item = Item.find(params[:item_id])
     end
 end
