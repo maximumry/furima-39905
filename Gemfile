@@ -87,3 +87,7 @@ gem 'mini_magick'
 gem 'image_processing', '~> 1.2'
 gem 'payjp'
 gem 'gon'
+
+group :production do
+  gem 'pg'
+end
